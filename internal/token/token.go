@@ -8,7 +8,7 @@ type Token struct {
 	next            *Token
 }
 
-// Create a token and return this token
+// Create a token and return token
 func makeToken(tokenType TokenType, value, fileName string, column, row uint32) *Token {
 	var token *Token = new(Token)
 	token.tokenType = tokenType
