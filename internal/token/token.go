@@ -2,11 +2,10 @@ package token
 
 // The Token struct
 type Token struct {
-	tokenType   TokenType
-	value       string
-	fileName    string
-	column, row uint32
-	next        *Token
+	tokenType       TokenType
+	value, fileName string
+	column, row     uint32
+	next            *Token
 }
 
 // Create a token and return this token
