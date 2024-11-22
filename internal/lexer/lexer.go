@@ -17,3 +17,11 @@ func createLexer(source, fileName string) *Lexer {
 
 	return lexer
 }
+
+func (lexer *Lexer) scanner() {
+
+}
+
+func (lexer *Lexer) isAtEnd() bool {
+	return lexer.currentPosition == len(lexer.source)
+}
