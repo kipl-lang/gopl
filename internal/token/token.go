@@ -4,18 +4,18 @@ package token
 type Token struct {
 	TokenType       TokenType
 	Value, FileName string
-	Column, Row     uint32
+	Line, Column    uint32
 	Next            *Token
 }
 
 // Create a token and return token
-func MakeToken(tokenType TokenType, value, fileName string, column, row uint32) *Token {
+func MakeToken(tokenType TokenType, value, fileName string, line, column uint32) *Token {
 	var token *Token = new(Token)
 	token.TokenType = tokenType
 	token.Value = value
 	token.FileName = fileName
 	token.Column = column
-	token.Row = row
+	token.Line = line
 	token.Next = nil
 
 	return token

@@ -26,6 +26,14 @@ func (lexer *Lexer) Scanner() {
 	var firstToken *token.Token = nil
 
 	for {
+		var tmpToken *token.Token = lexer.scanToken()
+
+		if firstToken == nil {
+			firstToken = tmpToken
+		} else {
+			token.GetLastToken(firstToken).Next = tmpToken
+		}
+
 		if token.GetLastToken(firstToken).TokenType != token.TOKEN_EOF {
 			break
 		}
@@ -34,10 +42,24 @@ func (lexer *Lexer) Scanner() {
 
 func (lexer *Lexer) scanToken() *token.Token {
 
+	if lexer.isAtEnd() {
+		return token.MakeToken(token.TOKEN_EOF, "end", lexer.fileName, lexer.currentLine, lexer.currentColumn)
+	}
+
+	var char byte = lexer.advance()
+
+	switch char {
+	case '+':
+
+	}
 }
 
 func (lexer *Lexer) peek() byte {
 	return lexer.source[lexer.currentPosition]
+}
+
+func (lexer *Lexer) nextPeek() byte {
+	return lexer.source[lexer.currentPosition+1]
 }
 
 func (lexer *Lexer) advance() byte {
@@ -48,4 +70,13 @@ func (lexer *Lexer) advance() byte {
 
 func (lexer *Lexer) isAtEnd() bool {
 	return lexer.currentPosition == uint32(len(lexer.source))
+}
+
+func (lexer *Lexer) isMatch(char byte) bool {
+	if lexer.isAtEnd() || lexer.peek() != char {
+		return false
+	}
+
+	lexer.advance()
+	return true
 }
