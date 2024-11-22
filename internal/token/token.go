@@ -2,30 +2,30 @@ package token
 
 // The Token struct
 type Token struct {
-	tokenType       TokenType
-	value, fileName string
-	column, row     uint32
-	next            *Token
+	TokenType       TokenType
+	Value, FileName string
+	Column, Row     uint32
+	Next            *Token
 }
 
 // Create a token and return token
-func makeToken(tokenType TokenType, value, fileName string, column, row uint32) *Token {
+func MakeToken(tokenType TokenType, value, fileName string, column, row uint32) *Token {
 	var token *Token = new(Token)
-	token.tokenType = tokenType
-	token.value = value
-	token.fileName = fileName
-	token.column = column
-	token.row = row
-	token.next = nil
+	token.TokenType = tokenType
+	token.Value = value
+	token.FileName = fileName
+	token.Column = column
+	token.Row = row
+	token.Next = nil
 
 	return token
 }
 
 // Get last token
-func getLastToken(token *Token) *Token {
-	if token.next != nil {
+func GetLastToken(token *Token) *Token {
+	if token.Next != nil {
 		return token
 	}
 
-	return getLastToken(token.next)
+	return GetLastToken(token.Next)
 }

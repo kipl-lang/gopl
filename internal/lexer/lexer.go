@@ -7,7 +7,7 @@ import (
 // The Lexer struct
 type Lexer struct {
 	source, fileName                            string
-	currentPosition, currentLine, currentColumn int
+	currentPosition, currentLine, currentColumn uint32
 }
 
 // create lexer and return
@@ -22,12 +22,30 @@ func createLexer(source, fileName string) *Lexer {
 	return lexer
 }
 
-func (lexer *Lexer) scanner() {
+func (lexer *Lexer) Scanner() {
 	var firstToken *token.Token = nil
 
-	for()
+	for {
+		if token.GetLastToken(firstToken).TokenType != token.TOKEN_EOF {
+			break
+		}
+	}
+}
+
+func (lexer *Lexer) scanToken() *token.Token {
+
+}
+
+func (lexer *Lexer) peek() byte {
+	return lexer.source[lexer.currentPosition]
+}
+
+func (lexer *Lexer) advance() byte {
+	var char byte = lexer.source[lexer.currentPosition]
+	lexer.currentPosition++
+	return char
 }
 
 func (lexer *Lexer) isAtEnd() bool {
-	return lexer.currentPosition == len(lexer.source)
+	return lexer.currentPosition == uint32(len(lexer.source))
 }
