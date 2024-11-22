@@ -1,5 +1,9 @@
 package lexer
 
+import (
+	"gopl/internal/token"
+)
+
 // The Lexer struct
 type Lexer struct {
 	source, fileName                            string
@@ -19,7 +23,9 @@ func createLexer(source, fileName string) *Lexer {
 }
 
 func (lexer *Lexer) scanner() {
+	var firstToken *token.Token = nil
 
+	for()
 }
 
 func (lexer *Lexer) isAtEnd() bool {

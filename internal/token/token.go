@@ -20,3 +20,12 @@ func makeToken(tokenType TokenType, value, fileName string, column, row uint32) 
 
 	return token
 }
+
+// Get last token
+func getLastToken(token *Token) *Token {
+	if token.next != nil {
+		return token
+	}
+
+	return getLastToken(token.next)
+}
