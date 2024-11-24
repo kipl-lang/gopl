@@ -106,6 +106,13 @@ func (lexer *Lexer) skipWhiteSpace() {
 			lexer.currentLine++
 			lexer.currentColumn = 0
 			lexer.advance()
+		case '/':
+			if lexer.nextPeek() == '/' {
+				for lexer.peek() != '\n' && lexer.isAtEnd() {
+					lexer.advance()
+				}
+				lexer.skipWhiteSpace()
+			}
 		default:
 			return
 		}
