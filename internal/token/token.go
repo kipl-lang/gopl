@@ -14,8 +14,8 @@ func MakeToken(tokenType TokenType, value, fileName string, line, column uint32)
 	token.TokenType = tokenType
 	token.Value = value
 	token.FileName = fileName
-	token.Column = column
 	token.Line = line
+	token.Column = column
 	token.Next = nil
 
 	return token
@@ -23,7 +23,7 @@ func MakeToken(tokenType TokenType, value, fileName string, line, column uint32)
 
 // Get last token
 func GetLastToken(token *Token) *Token {
-	if token.Next != nil {
+	if token.Next == nil {
 		return token
 	}
 

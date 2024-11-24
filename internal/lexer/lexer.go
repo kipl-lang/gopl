@@ -11,7 +11,7 @@ type Lexer struct {
 }
 
 // create lexer and return
-func createLexer(source, fileName string) *Lexer {
+func CreateLexer(source, fileName string) *Lexer {
 	var lexer *Lexer = new(Lexer)
 	lexer.source = source
 	lexer.fileName = fileName
@@ -34,7 +34,7 @@ func (lexer *Lexer) Scanner() *token.Token {
 			token.GetLastToken(firstToken).Next = tmpToken
 		}
 
-		if token.GetLastToken(firstToken).TokenType != token.TOKEN_EOF {
+		if token.GetLastToken(firstToken).TokenType == token.TOKEN_EOF {
 			break
 		}
 	}
@@ -58,6 +58,8 @@ func (lexer *Lexer) scanToken() *token.Token {
 			return token.MakeToken(token.TOKEN_PLUS_EQUAL, "+=", lexer.fileName, lexer.currentLine, lexer.currentColumn)
 		}
 		return token.MakeToken(token.TOKEN_PLUS, "+", lexer.fileName, lexer.currentLine, lexer.currentColumn)
+	default:
+		return token.MakeToken(token.TOKEN_ERROR, "Unexpexted Token", lexer.fileName, lexer.currentLine, lexer.currentColumn)
 	}
 }
 
