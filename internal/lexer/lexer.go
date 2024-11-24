@@ -22,7 +22,7 @@ func createLexer(source, fileName string) *Lexer {
 	return lexer
 }
 
-func (lexer *Lexer) Scanner() {
+func (lexer *Lexer) Scanner() *token.Token {
 	var firstToken *token.Token = nil
 
 	for {
@@ -38,6 +38,8 @@ func (lexer *Lexer) Scanner() {
 			break
 		}
 	}
+
+	return firstToken
 }
 
 func (lexer *Lexer) scanToken() *token.Token {
@@ -50,7 +52,10 @@ func (lexer *Lexer) scanToken() *token.Token {
 
 	switch char {
 	case '+':
-
+		if lexer.isMatch('=') {
+			return token.MakeToken(token.TOKEN_PLUS_EQUAL, "+=", lexer.fileName, lexer.currentLine, lexer.currentColumn)
+		}
+		return token.MakeToken(token.TOKEN_PLUS, "+", lexer.fileName, lexer.currentLine, lexer.currentColumn)
 	}
 }
 
@@ -79,4 +84,23 @@ func (lexer *Lexer) isMatch(char byte) bool {
 
 	lexer.advance()
 	return true
+}
+
+func (lexer *Lexer) skipWhiteSpace() {
+	for !lexer.isAtEnd() {
+		var char byte = lexer.peek()
+
+		switch char {
+		case ' ':
+			fallthrough
+		case '\t':
+			fallthrough
+		case '\r':
+			lexer.advance()
+		case '\n':
+			lexer.currentLine++
+			lexer.currentColumn = 0
+			lexer.advance()
+		}
+	}
 }
