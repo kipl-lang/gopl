@@ -44,6 +44,8 @@ func (lexer *Lexer) Scanner() *token.Token {
 
 func (lexer *Lexer) scanToken() *token.Token {
 
+	lexer.skipWhiteSpace()
+
 	if lexer.isAtEnd() {
 		return token.MakeToken(token.TOKEN_EOF, "end", lexer.fileName, lexer.currentLine, lexer.currentColumn)
 	}
@@ -101,6 +103,8 @@ func (lexer *Lexer) skipWhiteSpace() {
 			lexer.currentLine++
 			lexer.currentColumn = 0
 			lexer.advance()
+		default:
+			return
 		}
 	}
 }
