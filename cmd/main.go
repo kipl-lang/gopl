@@ -8,9 +8,9 @@ import (
 
 func main() {
 
-	var lex *lexer.Lexer = lexer.CreateLexer("\n\n +", "kerem.gopl")
+	var lex *lexer.Lexer = lexer.CreateLexer("+", "kerem.gopl")
 
 	var fToken *token.Token = lex.Scanner()
 
-	fmt.Println(fToken.Value)
+	fmt.Println(fToken.Column)
 }

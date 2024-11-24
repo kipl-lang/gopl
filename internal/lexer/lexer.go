@@ -73,6 +73,7 @@ func (lexer *Lexer) nextPeek() byte {
 
 func (lexer *Lexer) advance() byte {
 	var char byte = lexer.source[lexer.currentPosition]
+	lexer.currentColumn++
 	lexer.currentPosition++
 	return char
 }
